@@ -1,4 +1,227 @@
-# Together World · 어린이대공원 스탬프 탐험 웹앱
+# Together World · Children's Grand Park Stamp Adventure Web App
+
+[English](#english) · [한국어](#한국어)
+
+---
+
+<a id="english"></a>
+
+## English
+
+A mobile web app where visitors find 4 game stations hidden around Seoul Children's Grand Park, clear each game, and collect digital stamps by tapping an NFC tag.
+It is the app part of the STDT × ACDT group project (G12, Together World). Nothing to install: it opens in a phone browser (Safari, Chrome).
+
+- File: a single `index.html` (HTML, CSS and JavaScript all in one file)
+- Languages: Korean / English (toggle at the top)
+- Server: Firebase Authentication + Cloud Firestore (for member records)
+
+---
+
+### 1. Features
+
+| Screen | What it does |
+|---|---|
+| Start screen | Welcome message and a choice: "Log in and enter" or "Look around as a guest". The log-in side offers log in and sign up |
+| Map | Illustrated park map (zoom, pan), 58 facility pins, category chips (Animal Land, Nature Land, Fun Land, Amenities, Gates), facility search. Tapping a pin opens an info sheet (description, hours, closures, fees) |
+| Hidden `?` pins | The 4 game stations. Tapping one shows the same location hint as the stamp screen. The pin changes color once cleared |
+| Facility list | All facilities grouped by category. Tapping one jumps to its pin on the map |
+| Stamps | A 4-cell leaflet (Dino Game, Rock-Paper-Scissors, Spot the Difference, Pose Game), progress bar, hint for the next place. Tapping a cell shows how to play, the clear condition and how to use NFC |
+| Adventure complete | Collecting all 4 shows a celebration screen (confetti) and any new badge |
+| Badge roadmap | One badge at the 1st, 3rd, 5th, 7th and 10th completed adventure (Sprout Explorer → Legendary Guide). Members only |
+| Season stamps | Stamps from season-only NFC stickers placed in the park. Autumn (Oct–Nov), Winter (Dec–Feb), Christmas Hidden (Dec). Members only |
+| Settings | Change nickname, change password (saved to the server). The ID cannot be changed |
+
+#### Members and guests
+
+| | Member | Guest |
+|---|---|---|
+| Collect today's stamps | Yes | Yes |
+| Record kept (adventures completed, plays per game) | Yes | No |
+| Badge roadmap, season stamps | Yes | No |
+| Continue on another device | Yes | No |
+| Name shown | Nickname chosen at sign-up | Name entered at the start (blank = "Explorer") |
+
+Stamps reset **once a day** in Korea time (KST). On the same device and day they stay after a refresh.
+
+---
+
+### 2. Game stations and placement
+
+The route is **enter at the Back Gate → zoo → quiet south-east path → sports area → leave at the Back Gate**. Locations follow the team document "Together World — 데이터 근거 정리" (data evidence summary).
+
+| Order | id | Game | Location | Hardware | To clear |
+|---|---|---|---|---|---|
+| 1 | `dino` | Dino Game | Back Gate plaza, beside the Rainbow Fountain | Arduino Uno + 2.4" TFT (SPI, 240×320) + buttons | Jump over 10 obstacles |
+| 2 | `rps` | Rock-Paper-Scissors | Zoo entrance, between Palgakdang and the Waterfowl Aviary | Arduino Uno + TFT + buttons | Win 2 times |
+| 3 | `diff` | Spot the Difference | Path from the Marine Animal House to the Soccer Field, before the Guui Gate Cafeteria | Arduino Uno + TFT (touch) | Find 3 differences |
+| 4 | `pose` | Pose Game | Between the Tennis Courts and the Seniors' Playground | Raspberry Pi 4 + iPad (camera input and display) | Succeed in 2 of 3 rounds |
+
+Every station signals a clear with an LED and buzzer, then sends the clear to the web app through an NFC tag.
+
+---
+
+### 3. NFC tags
+
+Put a URL in this format on the tag (or in the NFC signal the station sends):
+
+```
+https://<deployed site>/?g=<id>
+```
+
+Example: `https://example.github.io/together-world/?g=dino`
+
+These forms are accepted too:
+
+```
+https://<site>/?stamp=dino
+https://<site>/#stamp-dino
+https://<site>/stamp?g=dino
+```
+
+| id | Meaning |
+|---|---|
+| `dino`, `rps`, `diff`, `pose` | Game stamps |
+| `autumn`, `winter`, `xmas` | Season stamps (valid only in their months, members only) |
+
+After stamping, the app rewrites the address to `#stamps`, so a refresh does not stamp twice.
+If the visitor has not entered yet (logged in or chosen guest), the start screen comes first and the stamp is given right after.
+
+**On the phone (also explained inside the app)**
+1. When you clear a game, the station LED turns on.
+2. Within 30 seconds, hold the top back of the phone to the NFC mark.
+3. Tap the notification (link) that appears to get the stamp.
+
+iPhone needs the screen on; Android needs NFC turned on.
+
+---
+
+### 4. Deployment
+
+It is a single static file, so any static host works (GitHub Pages, Netlify, Firebase Hosting, etc.).
+
+1. Put `index.html` at the root of the repository.
+2. Turn on hosting and use the resulting address in the NFC tag URLs.
+3. The address must be HTTPS (both the Firebase calls and the NFC links assume HTTPS).
+
+> The Claude artifact preview blocks outside server calls, so log in and sign up fail there with "Couldn't reach the server". Test member features on the deployed address.
+
+---
+
+### 5. Firebase setup
+
+Settings at the top of `index.html`:
+
+```js
+var FIREBASE = { apiKey: '...', projectId: 'grand-project-eb000' };
+```
+
+If both values are left empty, the app runs in **practice mode** and accounts are saved only in that device's browser.
+
+#### In the Firebase console
+
+1. **Authentication → Sign-in method → Email/Password**: enable
+2. Create a **Firestore Database**
+3. Publish these **Firestore rules** (each user can read and write only their own document)
+
+```
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /users/{uid} {
+      allow read, write: if request.auth != null && request.auth.uid == uid;
+    }
+  }
+}
+```
+
+If a step is missing, the app shows the likely cause next to the error ("turn on Email/Password in Firebase Authentication", "check the apiKey", "publish the Firestore rules").
+
+#### How IDs are handled
+
+Firebase only signs up by email, so each ID is registered as a placeholder email, `<id>@together-world.example`.
+That is also how users appear in the Firebase console. IDs are 3–20 letters, digits or underscores, case-insensitive; passwords need 6 or more characters.
+
+---
+
+### 6. Data
+
+#### Server (Firestore)
+
+One document, `users/{uid}`, holds the whole member record as a JSON string.
+
+| Field | Content |
+|---|---|
+| `data` | The record object below, `JSON.stringify`-ed |
+| `nick` | Nickname (stored separately so it is easy to read in the console) |
+
+```json
+{
+  "nick": "Juwon",
+  "clears": 3,
+  "clearDates": ["2026-11-15", "2026-11-16", "2026-11-17"],
+  "games": { "dino": { "n": 3, "last": "2026-11-17" } },
+  "seasons": { "autumn": "2026-11-17" },
+  "today": { "date": "2026-11-17", "done": { "dino": 1763362800000 }, "cleared": false }
+}
+```
+
+If the record diverges across devices, logging in **merges** the server copy and the device copy and keeps whichever holds more.
+
+#### Device (localStorage)
+
+| Key | Content |
+|---|---|
+| `tw.lang` | Chosen language (`ko` / `en`) |
+| `tw.session` | Current entry (member or guest, name, log-in tokens) |
+| `tw.rec.<id>` | Cached member record |
+| `tw.stamps` | A guest's stamps for today |
+| `tw.accounts` | Practice-mode accounts (only when no server is set) |
+
+Where localStorage is unavailable, the app still works by keeping data in memory.
+
+---
+
+### 7. Settings the team can change
+
+All are in the "settings the team may change" block at the top of the `<script>` in `index.html`.
+
+| Name | What it changes |
+|---|---|
+| `GAMES` | Station ids and `?` pin coordinates (x, y) on the map. `null` hides the pin |
+| `FIREBASE` | Server connection |
+| `SEASONS` | Season stamp ids, valid months, icons |
+| `BADGES` | How many completed adventures earn each badge, and its icon |
+| `STR` | Every on-screen text (Korean `ko`, English `en`). Hints use keys like `h_dino` |
+| `RAW` | The 58 facilities (number, category, coordinates, names, descriptions, flags) |
+
+The map uses the same 1078 × 660 coordinate space as the official park map. Facility flags: `p` park hours, `z` zoo hours, `c` closed, `$` paid.
+Facility locations: Seoul Facilities Corporation, Seoul Children's Grand Park.
+
+---
+
+### 8. Testing
+
+1. Add `?g=dino` to the deployed address to get the Dino Game stamp. This checks the flow with just a browser, no NFC.
+2. Stamp `rps`, `diff` and `pose` too to see the adventure-complete screen and badge.
+3. The menu item **"Clear today's stamps (testing)"** empties today's stamps.
+4. In the browser developer console, `__tw.state()` shows the current state (view, language, stamps, session, record, server connection).
+
+---
+
+### 9. Known limitations
+
+- **The URL is the only proof of a clear.** Anyone who knows `?g=dino` can get the stamp without playing. The 30-second limit must be enforced by the station hardware; the web app does not check time. This is fine for a presentation or demo, but real operation would need the station to add a changing code (such as a one-time token) to the URL.
+- **No password recovery.** Accounts use placeholder emails, so no reset email can be received.
+- **A testing menu is still in place.** Remove "Clear today's stamps" before real deployment.
+- **The map is a simplified illustration** of the official park map, so real paths and distances may differ.
+- Facility information (hours, Botanical Garden closure, etc.) is as of November 2026.
+
+---
+
+<a id="한국어"></a>
+
+## 한국어
+
 
 서울어린이대공원 곳곳에 숨겨 둔 게임 스테이션 4곳을 찾아 게임을 깨고, NFC 태그로 디지털 도장을 모으는 모바일 웹앱입니다.
 STDT × ACDT 조별 프로젝트(G12, Together World)의 앱 파트이며, 설치 없이 휴대폰 브라우저(Safari, Chrome)에서 열어 씁니다.
@@ -9,7 +232,7 @@ STDT × ACDT 조별 프로젝트(G12, Together World)의 앱 파트이며, 설�
 
 ---
 
-## 1. 주요 기능
+### 1. 주요 기능
 
 | 화면 | 내용 |
 |---|---|
@@ -23,7 +246,7 @@ STDT × ACDT 조별 프로젝트(G12, Together World)의 앱 파트이며, 설�
 | 시즌 스탬프 | 공원에 붙인 시즌 전용 NFC 스티커로 받는 도장. 가을(10~11월), 겨울(12~2월), 크리스마스 히든(12월). 회원만 |
 | 설정 | 닉네임 변경, 비밀번호 변경(서버 반영). 아이디는 변경 불가 |
 
-### 회원과 비회원
+#### 회원과 비회원
 
 | | 회원 | 비회원 |
 |---|---|---|
@@ -37,7 +260,7 @@ STDT × ACDT 조별 프로젝트(G12, Together World)의 앱 파트이며, 설�
 
 ---
 
-## 2. 게임 스테이션과 배치
+### 2. 게임 스테이션과 배치
 
 동선은 **후문 입장 → 동물원 → 남동쪽 조용한 길 → 체육시설 쪽 → 후문 퇴장** 순서입니다. 위치 근거는 팀 문서 "Together World — 데이터 근거 정리"를 따릅니다.
 
@@ -52,7 +275,7 @@ STDT × ACDT 조별 프로젝트(G12, Together World)의 앱 파트이며, 설�
 
 ---
 
-## 3. NFC 태그 연동
+### 3. NFC 태그 연동
 
 태그(또는 스테이션이 내보내는 NFC 신호)에는 아래 형식의 URL을 넣습니다.
 
@@ -87,7 +310,7 @@ iPhone은 화면을 켠 상태, Android는 NFC를 켠 상태여야 합니다.
 
 ---
 
-## 4. 배포
+### 4. 배포
 
 정적 파일 하나라서 어떤 정적 호스팅에도 올릴 수 있습니다. (GitHub Pages, Netlify, Firebase Hosting 등)
 
@@ -99,7 +322,7 @@ iPhone은 화면을 켠 상태, Android는 NFC를 켠 상태여야 합니다.
 
 ---
 
-## 5. Firebase 설정
+### 5. Firebase 설정
 
 `index.html` 상단의 설정값:
 
@@ -109,7 +332,7 @@ var FIREBASE = { apiKey: '...', projectId: 'grand-project-eb000' };
 
 두 값을 모두 비우면 **연습 모드**로 돌아갑니다. 이때 계정은 그 기기의 브라우저에만 저장됩니다.
 
-### 콘솔에서 해야 할 일
+#### 콘솔에서 해야 할 일
 
 1. **Authentication → 로그인 방법 → 이메일/비밀번호** 사용 설정
 2. **Firestore Database** 생성
@@ -128,16 +351,16 @@ service cloud.firestore {
 
 설정이 빠지면 앱이 오류 문구 옆에 원인을 같이 보여 줍니다. ("이메일/비밀번호를 켜 주세요", "apiKey를 다시 확인해 주세요", "Firestore 규칙을 게시해 주세요")
 
-### 아이디 처리 방식
+#### 아이디 처리 방식
 
 Firebase는 이메일로만 가입을 받기 때문에, 아이디를 `<아이디>@together-world.example` 형태의 가짜 이메일로 바꿔서 등록합니다.
 그래서 Firebase 콘솔의 사용자 목록에도 이 형태로 보입니다. 아이디는 영문·숫자·밑줄 3~20자, 대소문자 구분 없음, 비밀번호는 6자 이상입니다.
 
 ---
 
-## 6. 데이터 구조
+### 6. 데이터 구조
 
-### 서버 (Firestore)
+#### 서버 (Firestore)
 
 `users/{uid}` 문서 하나에 회원 기록 전체를 JSON 문자열로 저장합니다.
 
@@ -159,7 +382,7 @@ Firebase는 이메일로만 가입을 받기 때문에, 아이디를 `<아이디
 
 여러 기기에서 쓰다가 기록이 갈라지면, 로그인할 때 서버 기록과 기기 기록을 **합쳐서** 더 많이 모은 쪽을 남깁니다.
 
-### 기기 (localStorage)
+#### 기기 (localStorage)
 
 | 키 | 내용 |
 |---|---|
@@ -173,7 +396,7 @@ localStorage를 쓸 수 없는 환경에서도 메모리에 임시 저장하며 
 
 ---
 
-## 7. 팀이 바꿀 수 있는 설정값
+### 7. 팀이 바꿀 수 있는 설정값
 
 모두 `index.html`의 `<script>` 맨 위 "settings the team may change" 구역에 있습니다.
 
@@ -191,7 +414,7 @@ localStorage를 쓸 수 없는 환경에서도 메모리에 임시 저장하며 
 
 ---
 
-## 8. 테스트 방법
+### 8. 테스트 방법
 
 1. 배포 주소 끝에 `?g=dino`를 붙여 열면 공룡게임 도장이 찍힙니다. NFC 없이 브라우저만으로 흐름을 확인할 수 있습니다.
 2. `rps`, `diff`, `pose`까지 찍으면 탐험 완료 화면과 배지가 나옵니다.
@@ -200,7 +423,7 @@ localStorage를 쓸 수 없는 환경에서도 메모리에 임시 저장하며 
 
 ---
 
-## 9. 알려진 한계
+### 9. 알려진 한계
 
 - **클리어 증명이 URL뿐입니다.** `?g=dino` 주소만 알면 게임을 하지 않고도 도장을 받을 수 있습니다. "30초 안에 태그" 제한도 스테이션 하드웨어 쪽에서 지켜야 하며, 웹앱은 시간을 확인하지 않습니다. 발표나 시연에서는 문제가 없지만 실제 운영이라면 스테이션이 매번 바뀌는 코드(예: 일회용 토큰)를 URL에 붙이는 방식이 필요합니다.
 - **비밀번호 찾기가 없습니다.** 가짜 이메일로 가입하기 때문에 재설정 메일을 받을 수 없습니다.
