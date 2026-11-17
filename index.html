@@ -228,6 +228,51 @@ html[lang="en"] .ink b{font-family:Fredoka,sans-serif;font-weight:700;font-size:
 .gerr{margin:12px 0 0;background:#FBE3DF;color:var(--strong);border-radius:18px;padding:10px 14px;font-size:14px;font-weight:700;line-height:1.45;display:none}
 .gerr.on{display:block}
 .gate-on #menuBtn{visibility:hidden}
+/* welcome: full-screen scene */
+#gate.full{top:0;padding:0;background:linear-gradient(#A9E0F4 0%,#CFEFF0 34%,#F8F4C7 66%)}
+#gate.full.on{display:flex;flex-direction:column}
+.gate-full #bar{position:relative;z-index:20}
+.gate-full #title{visibility:hidden}
+.wl-top{flex-shrink:0;position:relative;z-index:2;padding:78px 20px 0;text-align:center}
+.wl-pill{display:inline-flex;align-items:center;gap:6px;background:var(--surface);border-radius:9999px;padding:6px 14px;font-size:13px;font-weight:800;line-height:1.2;color:var(--primary-deep);box-shadow:var(--shadow)}
+.wl-logo{margin:12px 0 0;font-family:var(--f-title);font-weight:700;font-size:clamp(40px,13vw,58px);line-height:.98;color:var(--primary-deep);text-shadow:0 4px 0 #fff}
+.wl-logo span{display:block;color:#E08A00}
+.wl-sub{margin-top:10px;font-size:15px;font-weight:800;line-height:1.3;color:var(--strong);word-break:keep-all}
+.wl-scene{position:relative;flex:1 1 0;min-height:170px;overflow:hidden}
+.wl-scene .land{position:absolute;left:0;bottom:0;width:100%;height:100%}
+.wl-cloud{position:absolute;left:-90px;width:84px;height:30px;border-radius:9999px;background:#fff;opacity:.9;animation:drift 38s linear infinite}
+.wl-cloud::before{content:"";position:absolute;left:16px;top:-14px;width:34px;height:34px;border-radius:50%;background:#fff}
+.wl-cloud::after{content:"";position:absolute;left:40px;top:-8px;width:26px;height:26px;border-radius:50%;background:#fff}
+@keyframes drift{0%{transform:translateX(0)}100%{transform:translateX(620px)}}
+.wl-stamps{position:absolute;left:0;right:0;top:14px;display:flex;justify-content:center;gap:12px;z-index:1}
+.wl-stamps span{width:58px;height:58px;border-radius:50%;background:var(--menu);border:3px solid var(--primary-bright);display:flex;align-items:center;justify-content:center;color:var(--primary-deep);--kb:#FEED9F;box-shadow:var(--shadow);animation:bob 2.8s ease-in-out infinite}
+.wl-stamps span:nth-child(2){animation-delay:-.7s;margin-top:14px}
+.wl-stamps span:nth-child(3){animation-delay:-1.4s;margin-top:14px}
+.wl-stamps span:nth-child(4){animation-delay:-2.1s}
+.wl-stamps svg{width:40px;height:40px}
+.wl-guide{position:absolute;left:50%;bottom:11%;margin-left:-44px;width:88px;height:88px;border-radius:50%;background:var(--menu);border:4px solid #fff;box-shadow:var(--shadow-lg);display:flex;align-items:center;justify-content:center;z-index:1;animation:bob 2.4s ease-in-out infinite}
+.wl-guide svg{width:68px;height:68px}
+.wl-panel{flex-shrink:0;position:relative;z-index:2;background:var(--surface);border-radius:32px 32px 0 0;box-shadow:0 -6px 0 rgba(107,88,66,.08);padding:20px 22px 18px;padding-bottom:calc(18px + env(safe-area-inset-bottom,0px))}
+.wl-panel h2{margin:0;text-align:center;word-break:keep-all;font-family:var(--f-title);font-weight:600;font-size:21px;line-height:1.25;color:var(--strong)}
+.wl-steps{display:flex;gap:8px;list-style:none;margin:14px 0 0;padding:0}
+.wl-steps li{flex:1 1 0;min-width:0;background:var(--surface-dim);border-radius:18px;padding:10px 4px 8px;text-align:center;font-size:12px;font-weight:800;line-height:1.25;color:var(--strong);word-break:keep-all}
+.wl-steps li svg{display:block;margin:0 auto 4px;color:var(--primary-deep)}
+.wl-panel .stack{display:flex;flex-direction:column;gap:10px;margin-top:16px}
+@media (max-height:700px){.wl-top{padding-top:70px}.wl-logo{font-size:40px}.wl-steps{display:none}.wl-stamps span{width:50px;height:50px}.wl-stamps svg{width:34px;height:34px}.wl-guide{width:72px;height:72px;margin-left:-36px;bottom:6%}.wl-guide svg{width:56px;height:56px}}
+/* settings */
+.dlg.set input{height:50px;text-align:left;padding:0 18px;font:600 16px/1.5 var(--f-body);letter-spacing:0}
+.dlg.set input:focus{padding:0 17px}
+.dlg.set input[readonly]{background:var(--surface-dim);border-style:dashed;color:var(--muted)}
+.dlg.set input::placeholder{color:var(--muted);opacity:1}
+.dlg.set label{margin-top:12px}
+.dlg.set .inrow{display:flex;gap:8px}
+.dlg.set .inrow input{flex:1 1 0;min-width:0}
+.dlg.set .inrow .btn{width:auto;min-height:50px;padding:0 18px;font-size:16px}
+.dlg.set hr{border:0;border-top:2px dashed var(--outline);margin:18px 0 6px}
+.dlg.set .fnote{margin:6px 4px 0;font-size:12px;font-weight:700;line-height:1.35;color:var(--muted)}
+.dlg.set .sec{margin:12px 0 0;font-size:16px;font-weight:800;color:var(--strong)}
+.dlg.set form>.btn{margin-top:14px;min-height:50px;font-size:17px}
+
 .acct{display:flex;align-items:center;gap:10px;padding:6px 14px 10px;font-size:14px;font-weight:800;color:var(--strong)}
 .acct small{font-size:12px;font-weight:700;color:var(--muted);display:block;line-height:1.35}
 .card2{background:var(--surface);border-radius:var(--blob);box-shadow:var(--shadow);padding:18px 18px 16px;margin-top:16px;flex-shrink:0}
@@ -314,7 +359,7 @@ var GAMES = [   // route: in at the Back Gate -> zoo -> quiet south-east path ->
 var MW = 1078, MH = 660;               // map coordinate space (same as the official park map)
 // Server for member accounts (Firebase). Leave both empty to run in practice mode:
 // accounts are then kept on this device only. Fill both in after creating the Firebase project.
-var FIREBASE = { apiKey: '', projectId: '' };
+var FIREBASE = { apiKey: 'AIzaSyC1p85Ng4yMAIbSnvERi08ROs4cZeK3t3M', projectId: 'grand-project-eb000' };
 // Season stamps: fixed NFC stickers that open  https://<this site>/?g=<id>  (only valid in the listed months, KST)
 var SEASONS = [
   { id: 'autumn', months: [10, 11], icon: 'maple' },
@@ -351,6 +396,17 @@ var STR = {
     h_pose: '테니스장과 어르신놀이터 사이 길에서 몸을 풀 시간이야!',
     h_all: '도장 4개를 모두 모았어! 오늘의 탐험 완료!',
     partyT: '탐험 완료!', partyB: '오늘의 탐험가 인증', partyOk: '야호!', partyAgain: '축하 화면 다시 보기',
+    mSettings: '설정', setT: '설정', setNick: '닉네임', save: '저장', setAcct: '계정', setIdNote: '아이디는 바꿀 수 없어요.',
+    fPwCur: '현재 비밀번호', fPwNew: '새 비밀번호', fPwNew2: '새 비밀번호 한 번 더', bPwChange: '비밀번호 변경',
+    tNick: '이제 이렇게 불러 드릴게요: ', tPw: '비밀번호를 바꿨어요. 다음부터 새 비밀번호로 로그인해요.',
+    ePwSame: '새 비밀번호 두 칸이 서로 달라요.', ePwCur: '현재 비밀번호가 맞지 않아요.', eMany: '시도가 너무 많았어요. 잠시 뒤에 다시 해 주세요.',
+    eSrv: '서버가 요청을 받아 주지 않았어요.', eBlocked: '서버에 닿지 못했어요. 인터넷 연결을 확인해 주세요. 미리보기 화면에서는 서버 연결이 막혀 있어서, 올려 둔 사이트 주소에서 열어야 해요.',
+    eExpired: '다른 기기에서 비밀번호가 바뀌었어요. 다시 로그인해 주세요.',
+    dAuth: 'Firebase Authentication에서 이메일/비밀번호를 켜 주세요', dKey: 'apiKey를 다시 확인해 주세요', dRules: 'Firestore 규칙을 게시해 주세요',
+    srvOn: '서버에 저장돼요. 어느 기기에서든 같은 아이디로 로그인할 수 있어요.',
+    setGuest: '비회원은 계정이 없어요. 로그인하면 기록이 쌓여요.', setLogin: '로그인 / 회원가입',
+    wPill: '서울어린이대공원', wSub: '숨은 게임을 찾아 도장을 모으는 스탬프 탐험',
+    wS1: '숨은 게임 찾기', wS2: '게임 클리어', wS3: 'NFC로 도장 쾅',
     explorer: '탐험가',
     gHello: '어린이대공원에 온 걸 환영해요!', gHelloSub: '로그인하면 탐험 기록이 차곡차곡 쌓여요.',
     gLogin: '로그인하고 입장하기', gGuest: '비회원으로 둘러보기', gGuestNote: '비회원은 오늘 도장만 찍을 수 있고, 기록은 남지 않아요.',
@@ -360,7 +416,7 @@ var STR = {
     bLogin: '로그인', bSignup: '회원가입', bSignupGo: '가입하고 입장하기', bToLogin: '이미 계정이 있어요',
     practice: '연습 모드예요. 계정이 이 기기에만 저장돼요.',
     eId: '아이디는 영문·숫자 3~20자로 적어 주세요.', ePw: '비밀번호는 6자 이상이어야 해요.', eExists: '이미 있는 아이디예요.',
-    eLogin: '아이디나 비밀번호가 맞지 않아요.', eNet: '앗, 서버에 연결하지 못했어요. 잠시 뒤 다시 해 볼래요?', busy: '잠시만요…',
+    eLogin: '아이디나 비밀번호가 맞지 않아요. 처음이라면 회원가입부터 해 주세요.', eNet: '앗, 서버에 연결하지 못했어요. 잠시 뒤 다시 해 볼래요?', busy: '잠시만요…',
     welcomeA: '', welcomeB: ', 환영해요!', member: '회원', guest: '비회원', mLogout: '로그아웃', mLeave: '처음 화면으로',
     syncFail: '기록을 서버에 저장하지 못했어요. 연결되면 다시 저장할게요.',
     stampOf: '의 탐험 스탬프',
@@ -419,6 +475,17 @@ var STR = {
     h_pose: 'Time to stretch on the path between the Tennis Courts and the Seniors’ Playground!',
     h_all: 'You collected all 4 stamps! Today’s adventure is complete!',
     partyT: 'Adventure complete!', partyB: 'Certified explorer of the day', partyOk: 'Hooray!', partyAgain: 'Show the celebration again',
+    mSettings: 'Settings', setT: 'Settings', setNick: 'Nickname', save: 'Save', setAcct: 'Account', setIdNote: 'Your ID can’t be changed.',
+    fPwCur: 'Current password', fPwNew: 'New password', fPwNew2: 'New password again', bPwChange: 'Change password',
+    tNick: 'From now on we’ll call you: ', tPw: 'Password changed. Use the new one next time you log in.',
+    ePwSame: 'The two new passwords don’t match.', ePwCur: 'The current password doesn’t match.', eMany: 'Too many attempts. Please try again in a moment.',
+    eSrv: 'The server didn’t accept the request.', eBlocked: 'Couldn’t reach the server. Check your connection. The preview screen blocks server calls, so open the hosted site address instead.',
+    eExpired: 'The password was changed on another device. Please log in again.',
+    dAuth: 'turn on Email/Password in Firebase Authentication', dKey: 'check the apiKey', dRules: 'publish the Firestore rules',
+    srvOn: 'Saved on the server. Log in with the same ID on any device.',
+    setGuest: 'Guests have no account. Log in to keep your record.', setLogin: 'Log in / Sign up',
+    wPill: 'Seoul Children’s Grand Park', wSub: 'A stamp adventure: find the games hidden around the park',
+    wS1: 'Find a hidden game', wS2: 'Clear the game', wS3: 'Tap NFC to stamp',
     explorer: 'Explorer',
     gHello: 'Welcome to Children’s Grand Park!', gHelloSub: 'Log in and your adventure record keeps growing.',
     gLogin: 'Log in and enter', gGuest: 'Look around as a guest', gGuestNote: 'Guests can collect today’s stamps, but nothing is saved.',
@@ -428,7 +495,7 @@ var STR = {
     bLogin: 'Log in', bSignup: 'Sign up', bSignupGo: 'Sign up and enter', bToLogin: 'I already have an account',
     practice: 'Practice mode: accounts are saved on this device only.',
     eId: 'Use 3–20 letters or digits for the ID.', ePw: 'The password needs 6 or more characters.', eExists: 'That ID is already taken.',
-    eLogin: 'The ID or password doesn’t match.', eNet: 'Oops, couldn’t reach the server. Try again in a moment?', busy: 'One moment…',
+    eLogin: 'The ID or password doesn’t match. New here? Sign up first.', eNet: 'Oops, couldn’t reach the server. Try again in a moment?', busy: 'One moment…',
     welcomeA: 'Welcome, ', welcomeB: '!', member: 'Member', guest: 'Guest', mLogout: 'Log out', mLeave: 'Back to start',
     syncFail: 'Couldn’t save to the server. It will be saved once you’re connected.',
     stampOf: '’s Explorer Stamps',
@@ -568,8 +635,27 @@ function saveSession() { sset('tw.session', session ? JSON.stringify(session) : 
 function localAccounts() { try { return JSON.parse(sget('tw.accounts') || '{}') || {}; } catch (e) { return {}; } }
 function weakHash(str) { var h = 5381, i; for (i = 0; i < str.length; i++) h = ((h << 5) + h + str.charCodeAt(i)) | 0; return String(h); }   // practice mode only
 function api(url, opt) {
-  return fetch(url, opt).then(function (r) { return r.json().then(function (j) { if (!r.ok) throw (j && j.error) || { message: 'HTTP_' + r.status }; return j; }); });
+  return fetch(url, opt).then(function (r) {
+    return r.json().then(function (j) { if (!r.ok) throw (j && j.error) || { message: 'HTTP_' + r.status }; return j; });
+  }, function () { throw { message: 'NET_BLOCKED' }; });
 }
+// Turns a server answer into a message a visitor can act on.
+function fail(e, kind) {
+  if (e && e.ui) return e;
+  var m = String((e && e.message) || ''), st = (e && e.status) || '';
+  if (m === 'NET_BLOCKED') return { ui: 'eBlocked' };
+  if (/EMAIL_EXISTS/.test(m)) return { ui: 'eExists' };
+  if (/WEAK_PASSWORD/.test(m)) return { ui: 'ePw' };
+  if (/INVALID_LOGIN_CREDENTIALS|EMAIL_NOT_FOUND|INVALID_PASSWORD|INVALID_EMAIL/.test(m)) return { ui: kind === 'pw' ? 'ePwCur' : 'eLogin' };
+  if (/TOO_MANY_ATTEMPTS/.test(m)) return { ui: 'eMany' };
+  if (/OPERATION_NOT_ALLOWED|PASSWORD_LOGIN_DISABLED|CONFIGURATION_NOT_FOUND/.test(m)) return { ui: 'eSrv', detail: t('dAuth') };
+  if (/API key|API_KEY/i.test(m)) return { ui: 'eSrv', detail: t('dKey') };
+  if (st === 'PERMISSION_DENIED') return { ui: 'eSrv', detail: t('dRules') };
+  return { ui: 'eSrv', detail: m.slice(0, 60) };
+}
+function errText(e) { e = e || {}; return t(e.ui || 'eNet') + (e.detail ? ' (' + e.detail + ')' : ''); }
+function expired(e) { return /TOKEN_EXPIRED|INVALID_REFRESH_TOKEN|USER_NOT_FOUND|USER_DISABLED|INVALID_ID_TOKEN/.test(String((e && e.message) || '')); }
+function kicked() { leave(); renderAll(); openGate('login'); var el = $('gErr'); if (el) { el.textContent = t('eExpired'); el.className = 'gerr on'; } }
 function fbAuth(kind, id, pw) {
   return api('https://identitytoolkit.googleapis.com/v1/accounts:' + kind + '?key=' + FIREBASE.apiKey, {
     method: 'POST', headers: { 'Content-Type': 'application/json' },
@@ -585,7 +671,7 @@ function fbToken() {
 }
 function fbDoc() { return 'https://firestore.googleapis.com/v1/projects/' + FIREBASE.projectId + '/databases/(default)/documents/users/' + session.uid; }
 function fbLoad() {
-  return fbToken().then(function (tk) { return fetch(fbDoc(), { headers: { Authorization: 'Bearer ' + tk } }); }).then(function (r) {
+  return fbToken().then(function (tk) { return fetch(fbDoc(), { headers: { Authorization: 'Bearer ' + tk } }).catch(function () { throw { message: 'NET_BLOCKED' }; }); }).then(function (r) {
     if (r.status === 404) return null;
     return r.json().then(function (j) { if (!r.ok) throw j.error || { message: 'HTTP_' + r.status }; try { return JSON.parse(j.fields.data.stringValue); } catch (e) { return null; } });
   });
@@ -600,13 +686,28 @@ var syncWarned = false;
 function saveRec() {
   if (!isUser()) return;
   sset('tw.rec.' + session.id, JSON.stringify(rec));
-  if (ONLINE) fbSave().then(function () { syncWarned = false; }).catch(function () { if (!syncWarned) { syncWarned = true; toast(t('syncFail')); } });
+  if (ONLINE) fbSave().then(function () { syncWarned = false; }).catch(function (e) {
+    if (expired(e)) { kicked(); return; }
+    if (!syncWarned) { syncWarned = true; var f = fail(e); toast(f.ui === 'eSrv' ? errText(f) : t('syncFail')); }
+  });
   else { var a = localAccounts(); if (a[session.id]) { a[session.id].rec = rec; sset('tw.accounts', JSON.stringify(a)); } }
 }
 function cachedRec(id) { try { return JSON.parse(sget('tw.rec.' + id) || 'null'); } catch (e) { return null; } }
-function richer(a, b) {   // keep whichever copy holds more
-  function w(r) { var n = (r.clears | 0) * 100, k; for (k in (r.games || {})) n += (r.games[k].n | 0); for (k in (r.seasons || {})) n += 1; for (k in ((r.today || {}).done || {})) n += 1; return n; }
-  if (!a) return b; if (!b) return a; return w(b) > w(a) ? b : a;
+function merged(a, b) {   // two copies of one record (server first, this device second): keep everything either one holds
+  if (!a) return b; if (!b) return a;
+  var r = fixRec(JSON.parse(JSON.stringify(a))), k; b = fixRec(JSON.parse(JSON.stringify(b)));
+  r.clears = Math.max(r.clears, b.clears);
+  b.clearDates.forEach(function (d) { if (r.clearDates.indexOf(d) < 0) r.clearDates.push(d); });
+  for (k in b.games) if (!r.games[k] || (b.games[k].n | 0) > (r.games[k].n | 0)) r.games[k] = b.games[k];
+  for (k in b.seasons) if (!r.seasons[k]) r.seasons[k] = b.seasons[k];
+  for (k in b.today.done) if (!r.today.done[k]) r.today.done[k] = b.today.done[k];
+  if (b.today.cleared) r.today.cleared = true;
+  if (!r.nick) r.nick = b.nick;
+  // stamps collected on two devices can complete today's set only after merging
+  if (!r.today.cleared && GAMES.every(function (g) { return !!r.today.done[g.id]; })) {
+    r.today.cleared = true; r.clears += 1; if (r.clearDates.indexOf(r.today.date) < 0) r.clearDates.push(r.today.date);
+  }
+  return r;
 }
 function signUp(id, pw, nick) {
   if (!/^[A-Za-z0-9_]{3,20}$/.test(id)) return Promise.reject({ ui: 'eId' });
@@ -619,8 +720,10 @@ function signUp(id, pw, nick) {
   }
   return fbAuth('signUp', key, pw).then(function (j) {
     session = { mode: 'user', id: key, name: nick, uid: j.localId, rt: j.refreshToken, tok: j.idToken, exp: Date.now() + (+j.expiresIn) * 1000 };
-    rec = blankRec(nick); saveSession(); sset('tw.rec.' + key, JSON.stringify(rec)); return fbSave();
-  }).catch(function (e) { throw { ui: /EMAIL_EXISTS/.test(e && e.message) ? 'eExists' : (/WEAK_PASSWORD/.test(e && e.message) ? 'ePw' : (e && e.ui) || 'eNet') }; });
+    rec = blankRec(nick); saveSession(); sset('tw.rec.' + key, JSON.stringify(rec));
+    // the account now exists on the server; a failed first save must not look like a failed sign-up
+    return fbSave().catch(function (e) { syncWarned = true; setTimeout(function () { toast(errText(fail(e))); }, 1500); });
+  }, function (e) { throw fail(e); });
 }
 function logIn(id, pw) {
   var key = String(id).toLowerCase();
@@ -629,12 +732,17 @@ function logIn(id, pw) {
     if (!a[key] || a[key].h !== weakHash(key + ':' + pw)) return Promise.reject({ ui: 'eLogin' });
     rec = fixRec(a[key].rec); session = { mode: 'user', id: key, name: rec.nick }; saveSession(); saveRec(); return Promise.resolve();
   }
-  return fbAuth('signInWithPassword', key, pw).then(function (j) {
+  var old = localAccounts()[key];
+  return fbAuth('signInWithPassword', key, pw).catch(function (e) {
+    // an account made on this device back in practice mode: move it up to the server
+    if (old && old.h === weakHash(key + ':' + pw) && /INVALID_LOGIN_CREDENTIALS|EMAIL_NOT_FOUND/.test(String((e && e.message) || ''))) return fbAuth('signUp', key, pw);
+    throw e;
+  }).then(function (j) {
     session = { mode: 'user', id: key, name: '', uid: j.localId, rt: j.refreshToken, tok: j.idToken, exp: Date.now() + (+j.expiresIn) * 1000 };
     return fbLoad();
   }).then(function (server) {
-    rec = fixRec(richer(server, cachedRec(key))); session.name = rec.nick; saveSession(); saveRec();
-  }).catch(function (e) { session = null; rec = null; throw { ui: /INVALID|NOT_FOUND|PASSWORD/.test(e && e.message) ? 'eLogin' : (e && e.ui) || 'eNet' }; });
+    rec = fixRec(merged(server, cachedRec(key) || (old && old.rec))); session.name = rec.nick; saveSession(); saveRec();
+  }).catch(function (e) { session = null; rec = null; var f = fail(e); if (f.ui === 'eExists') f = { ui: 'eLogin' }; throw f; });
 }
 function restoreSession() {
   try { session = JSON.parse(sget('tw.session') || 'null'); } catch (e) { session = null; }
@@ -643,13 +751,38 @@ function restoreSession() {
     var a = localAccounts();
     rec = fixRec(cachedRec(session.id) || (a[session.id] && a[session.id].rec), session.name);
     if (ONLINE && session.rt) fbLoad().then(function (server) {
-      var best = fixRec(richer(server, rec), session.name);
-      if (best !== rec) { rec = best; stamps = loadStamps(); renderAll(); }
+      var best = fixRec(merged(server, rec), session.name);
+      { rec = best; session.name = rec.nick; saveSession(); stamps = loadStamps(); renderAll(); }
       saveRec();
-    }).catch(function () {});
+    }).catch(function (e) { if (expired(e)) kicked(); });
   }
 }
 function leave() { session = null; rec = null; saveSession(); stamps = loadStamps(); }
+function changeNick(n) {
+  n = String(n || '').trim().slice(0, 10);
+  if (!session) return;
+  session.name = n; saveSession();
+  if (isUser()) { rec.nick = n; saveRec(); }   // saveRec also writes the nick to the server
+}
+function changePw(cur, nw) {
+  if (!isUser()) return Promise.reject({ ui: 'eLogin' });
+  if (String(nw).length < 6) return Promise.reject({ ui: 'ePw' });
+  var k = session.id;
+  if (!ONLINE) {
+    var a = localAccounts();
+    if (!a[k] || a[k].h !== weakHash(k + ':' + cur)) return Promise.reject({ ui: 'ePwCur' });
+    a[k].h = weakHash(k + ':' + nw); sset('tw.accounts', JSON.stringify(a)); return Promise.resolve();
+  }
+  // the server only accepts a password change right after a fresh log-in, so check the current one first
+  return fbAuth('signInWithPassword', k, cur).then(function (j) {
+    return api('https://identitytoolkit.googleapis.com/v1/accounts:update?key=' + FIREBASE.apiKey, {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ idToken: j.idToken, password: nw, returnSecureToken: true })
+    });
+  }).then(function (j) {
+    session.tok = j.idToken; session.rt = j.refreshToken; session.exp = Date.now() + (+j.expiresIn) * 1000; saveSession();
+  }, function (e) { throw fail(e, 'pw'); });
+}
 
 function loadStamps() {
   if (isUser()) { fixRec(rec); return rec.today; }
@@ -698,6 +831,7 @@ var IC = {
   maple: '<path d="M12 3c4.6 2.4 7.4 5.6 7.4 9.6A7.4 7.4 0 0 1 12 20a7.4 7.4 0 0 1-7.4-7.4C4.6 8.6 7.4 5.4 12 3z" fill="currentColor"/><path d="M12 9v12.5M12 13l-3-2.4M12 16l3-2.4" fill="none" stroke="var(--kb,#FFFAE5)" stroke-width="1.6" stroke-linecap="round"/>',
   snow: '<path d="M12 2.5v19M3.8 7.2l16.4 9.6M3.8 16.8l16.4-9.6M9.6 4.6L12 6.8l2.4-2.2M9.6 19.4L12 17.2l2.4 2.2" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/>',
   xtree: '<path d="M12 2.5l3.8 5.2h-1.9l3.9 5h-2l4 5.3H4.2l4-5.3h-2l3.9-5H8.2z" fill="currentColor"/><rect x="10.5" y="18" width="3" height="3.6" rx="1" fill="currentColor"/>',
+  gear: '<circle cx="12" cy="12" r="5.6" fill="none" stroke="currentColor" stroke-width="2.6"/><circle cx="12" cy="12" r="1.6" fill="currentColor"/><path d="M12 2.6v2.6M12 18.8v2.6M2.6 12h2.6M18.8 12h2.6M5.35 5.35l1.85 1.85M16.8 16.8l1.85 1.85M18.65 5.35L16.8 7.2M7.2 16.8l-1.85 1.85" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>',
   user: '<circle cx="12" cy="8" r="4.2" fill="currentColor"/><path d="M4 20.5c0-4.2 3.6-6.8 8-6.8s8 2.6 8 6.8z" fill="currentColor"/>',
   out: '<path d="M10 4.5H6.5a2 2 0 0 0-2 2v11a2 2 0 0 0 2 2H10M14.5 8l4 4-4 4M18 12H9.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>',
   check: '<path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>',
@@ -1104,6 +1238,7 @@ function renderMenu() {
   var items = [['map', 'mMap', 'map'], ['list', 'mList', 'list'], ['stamps', 'mStamps', 'stamp']];
   var h = '<div class="acct">' + ic('user', 22) + '<span>' + esc(hon()) + '<small>' + esc(t(isUser() ? 'member' : 'guest')) + (isUser() ? ' · ' + esc(session.id) : '') + '</small></span></div>';
   items.forEach(function (m) { h += '<button type="button" data-view="' + m[0] + '"' + (view === m[0] ? ' aria-current="page"' : '') + '>' + ic(m[2], 22) + esc(t(m[1])) + '</button>'; });
+  h += '<button type="button" data-act="settings">' + ic('gear', 22) + esc(t('mSettings')) + '</button>';
   h += '<hr><button type="button" class="sm" data-act="reset">' + ic('reset', 20) + esc(t('mReset')) + '</button>';
   h += '<button type="button" class="sm" data-act="leave">' + ic('out', 20) + esc(t(isUser() ? 'mLogout' : 'mLeave')) + '</button>';
   $('menu').innerHTML = h;
@@ -1120,9 +1255,10 @@ $('menu').addEventListener('click', function (e) {
   var b = e.target.closest('button'); if (!b) return;
   var v = b.getAttribute('data-view');
   closeOverlays();
-  if (v) setView(v); else if (b.getAttribute('data-act') === 'leave') { leave(); closeSheet(); renderAll(); openGate('welcome'); } else openReset();
+  var act = b.getAttribute('data-act');
+  if (v) setView(v); else if (act === 'leave') { leave(); closeSheet(); renderAll(); openGate('welcome'); } else if (act === 'settings') openSettings(); else openReset();
 });
-function dlg(inner) { $('dialog').innerHTML = '<div class="dlg"><div class="nametag">' + esc(t('guide')) + '</div>' + inner + '</div>'; $('dialog').classList.add('on'); $('scrim').className = 'on dim'; }
+function dlg(inner, cls) { $('dialog').innerHTML = '<div class="dlg' + (cls ? ' ' + cls : '') + '"><div class="nametag">' + esc(t('guide')) + '</div>' + inner + '</div>'; $('dialog').classList.add('on'); $('scrim').className = 'on dim'; }
 function tagSteps() {
   return '<ol class="steps"><li><b>1</b><span>' + esc(t('tag1')) + '</span></li><li><b>2</b><span>' + esc(t('tag2')) + '</span></li><li><b>3</b><span>' + esc(t('tag3')) + '</span></li></ol><p class="tipnote">' + esc(t('tagTip')) + '</p>';
 }
@@ -1142,6 +1278,41 @@ function openGame(g) {
     (placed ? '<button type="button" class="btn primary" id="dGo">' + esc(t('findIt')) + '</button>' : '') + '</div>');
   $('dNo').addEventListener('click', closeOverlays);
   if (placed) $('dGo').addEventListener('click', function () { closeOverlays(); focusPin('h-' + g); });
+}
+function openSettings() {
+  var u = isUser(), h;
+  h = '<h3>' + esc(t('setT')) + '</h3>' +
+    '<form id="sNickF"><label for="sNick">' + esc(t('setNick')) + '</label><div class="inrow">' +
+    '<input id="sNick" maxlength="10" autocomplete="off" value="' + esc((session && session.name) || '') + '" placeholder="' + esc(t('gNamePh')) + '">' +
+    '<button type="submit" class="btn primary">' + esc(t('save')) + '</button></div></form><hr>';
+  if (u) {
+    h += '<form id="sPwF"><div class="sec">' + esc(t('setAcct')) + '</div>' +
+      '<label for="sId">' + esc(t('fId')) + '</label><input id="sId" value="' + esc(session.id) + '" readonly tabindex="-1" autocomplete="username"><p class="fnote">' + esc(t('setIdNote')) + '</p>' +
+      '<label for="sCur">' + esc(t('fPwCur')) + '</label><input id="sCur" type="password" maxlength="40" autocomplete="current-password">' +
+      '<label for="sNew">' + esc(t('fPwNew')) + '</label><input id="sNew" type="password" maxlength="40" autocomplete="new-password" placeholder="' + esc(t('fPwPh')) + '">' +
+      '<label for="sNew2">' + esc(t('fPwNew2')) + '</label><input id="sNew2" type="password" maxlength="40" autocomplete="new-password">' +
+      '<div class="gerr" id="sErr" role="alert"></div>' +
+      '<button type="submit" class="btn secondary" id="sPwBtn">' + esc(t('bPwChange')) + '</button>' +
+      '<p class="fnote">' + esc(t(ONLINE ? 'srvOn' : 'practice')) + '</p></form>';
+  } else {
+    h += '<p class="fnote" style="font-size:14px">' + esc(t('setGuest')) + '</p><form><button type="button" class="btn secondary" id="sLogin">' + esc(t('setLogin')) + '</button></form>';
+  }
+  h += '<div class="acts"><button type="button" class="btn secondary" id="dNo">' + esc(t('close')) + '</button></div>';
+  dlg(h, 'set');
+  $('dNo').addEventListener('click', closeOverlays);
+  $('sNickF').addEventListener('submit', function (e) {
+    e.preventDefault(); changeNick($('sNick').value); renderAll(); toast(t('tNick') + hon(), 'user');
+  });
+  if ($('sLogin')) $('sLogin').addEventListener('click', function () { closeOverlays(); openGate('login'); });
+  if ($('sPwF')) $('sPwF').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var err = $('sErr'), btn = $('sPwBtn'), label = btn.textContent;
+    function bad(x) { btn.disabled = false; btn.textContent = label; err.textContent = errText(x); err.className = 'gerr on'; }
+    err.className = 'gerr';
+    if ($('sNew').value !== $('sNew2').value) { bad({ ui: 'ePwSame' }); return; }
+    btn.disabled = true; btn.textContent = t('busy');
+    changePw($('sCur').value, $('sNew').value).then(function () { closeOverlays(); toast(t('tPw'), 'check'); }, bad);
+  });
 }
 function openReset() {
   dlg('<div class="say">' + esc(t('resetAsk')) + '</div><div class="acts"><button type="button" class="btn secondary" id="dNo">' + esc(t('cancel')) + '</button><button type="button" class="btn primary" id="dYes">' + esc(t('ok')) + '</button></div>');
@@ -1200,19 +1371,40 @@ function grant(game) {
 
 /* ---------- entrance: welcome, guest name, log in, sign up ---------- */
 var gateStep = null;
+function tree(x, y, k) { return '<g transform="translate(' + x + ' ' + y + ') scale(' + k + ')"><rect x="-4" y="-8" width="8" height="28" rx="3" fill="#A9743F"/><circle cy="-24" r="22" fill="#3FA06A"/><circle cx="-8" cy="-31" r="8" fill="#63B985"/></g>'; }
+function pine(x, y, k) { return '<g transform="translate(' + x + ' ' + y + ') scale(' + k + ')"><rect x="-3.5" y="-4" width="7" height="22" rx="3" fill="#A9743F"/><path d="M0 -58 L17 -30 H8 L21 -8 H-21 L-8 -30 H-17Z" fill="#2F8F6B" stroke="#2F8F6B" stroke-width="5" stroke-linejoin="round"/></g>'; }
+function landSVG() {
+  var f = '', i, fx = [22, 58, 96, 132, 262, 300, 338, 380], fc = ['#F798A6', '#FFFFFF', '#FDDB5C'];
+  for (i = 0; i < fx.length; i++) f += '<circle cx="' + fx[i] + '" cy="' + (268 + (i * 13) % 22) + '" r="4" fill="' + fc[i % 3] + '"/><circle cx="' + fx[i] + '" cy="' + (268 + (i * 13) % 22) + '" r="1.5" fill="#E08A00"/>';
+  return '<svg class="land" viewBox="0 0 400 300" preserveAspectRatio="xMidYMax slice" aria-hidden="true">' +
+    '<circle cx="338" cy="96" r="40" fill="#FEED9F" opacity=".7"/><circle cx="338" cy="96" r="26" fill="#FDDB5C"/>' +
+    '<path d="M0 196 Q96 128 204 176 T400 150 V300 H0Z" fill="#B9E08F"/>' +
+    pine(52, 178, .8) + tree(118, 168, .7) + pine(304, 164, .75) + tree(360, 160, .8) +
+    '<path d="M0 244 Q118 186 236 232 T400 216 V300 H0Z" fill="#7FC463"/>' +
+    '<path d="M200 300 Q214 268 194 252 Q182 240 200 228" fill="none" stroke="#F3E6B8" stroke-width="20" stroke-linecap="round"/>' +
+    tree(34, 246, 1.05) + pine(92, 252, .9) + tree(372, 240, 1.1) +
+    '<g transform="translate(300 238)"><rect x="-3" y="-2" width="6" height="34" rx="3" fill="#A9743F"/><rect x="-24" y="-24" width="48" height="26" rx="8" fill="#FFFAE5" stroke="#9A8662" stroke-width="2.5"/><circle cx="0" cy="-8" r="5" fill="#008276"/><circle cx="-8" cy="-15" r="2.6" fill="#008276"/><circle cx="0" cy="-18" r="2.6" fill="#008276"/><circle cx="8" cy="-15" r="2.6" fill="#008276"/></g>' +
+    f + '</svg>';
+}
 function closeGate() {
-  gateStep = null; $('gate').className = ''; $('gate').innerHTML = ''; $('app').classList.remove('gate-on');
+  gateStep = null; $('gate').className = ''; $('gate').innerHTML = ''; $('app').classList.remove('gate-on'); $('app').classList.remove('gate-full');
   renderAll(); setView(view, true);
   toast(t('welcomeA') + hon() + t('welcomeB'), 'user');
   if (pending) { var g = pending; pending = null; setTimeout(function () { grant(g); }, 400); }
 }
 function openGate(step) {
   gateStep = step; closeOverlays();
-  var h = '<div class="gcard"><div class="nametag">' + esc(t('guide')) + '</div>';
-  if (step === 'welcome') {
-    h += '<div class="hero"><div class="avatar">' + AVATAR + '</div></div><h2>' + esc(t('gHello')) + '</h2><div class="say">' + esc(t('gHelloSub')) + '</div>' +
+  var h = '<div class="gcard"><div class="nametag">' + esc(t('guide')) + '</div>', full = step === 'welcome';
+  if (full) {
+    var st4 = ''; GAME_IDS.forEach(function (g) { st4 += '<span>' + G_ICON[g](true) + '</span>'; });
+    h = '<div class="wl-top"><div class="wl-pill">' + ic('map', 16) + esc(t('wPill')) + '</div>' +
+      '<h1 class="wl-logo">Together<span>World</span></h1><div class="wl-sub">' + esc(t('wSub')) + '</div></div>' +
+      '<div class="wl-scene"><i class="wl-cloud" style="top:6%"></i><i class="wl-cloud" style="top:30%;animation-delay:-19s;transform-origin:left;scale:.7"></i>' +
+      landSVG() + '<div class="wl-stamps">' + st4 + '</div><div class="wl-guide">' + AVATAR + '</div></div>' +
+      '<div class="wl-panel"><h2>' + esc(t('gHello')) + '</h2>' +
+      '<ol class="wl-steps"><li>' + ic('search', 20) + esc(t('wS1')) + '</li><li>' + ic('star', 20) + esc(t('wS2')) + '</li><li>' + ic('nfc', 20) + esc(t('wS3')) + '</li></ol>' +
       '<div class="stack"><button type="button" class="btn primary" data-go="login">' + esc(t('gLogin')) + '</button><button type="button" class="btn secondary" data-go="guest">' + esc(t('gGuest')) + '</button></div>' +
-      '<p class="gnote">' + esc(t('gGuestNote')) + '</p>';
+      '<p class="gnote">' + esc(t('gGuestNote')) + '</p></div>';
   } else if (step === 'guest') {
     h += '<form id="gForm"><div class="say" style="text-align:left;font-size:18px">' + esc(t('gAskName')) + '</div><label for="gName">' + esc(t('gNameLabel')) + '</label>' +
       '<input id="gName" maxlength="10" autocomplete="off" placeholder="' + esc(t('gNamePh')) + '">' +
@@ -1227,10 +1419,11 @@ function openGate(step) {
       '<div class="stack"><button type="submit" class="btn primary" id="gSubmit">' + esc(t(up ? 'bSignupGo' : 'bLogin')) + '</button>' +
       '<button type="button" class="btn secondary" data-go="' + (up ? 'login' : 'signup') + '">' + esc(t(up ? 'bToLogin' : 'bSignup')) + '</button>' +
       '<button type="button" class="linkbtn" data-go="welcome" style="margin-top:0">' + esc(t('gBack')) + '</button></div></form>' +
-      (ONLINE ? '' : '<p class="gnote">' + esc(t('practice')) + '</p>');
+      '<p class="gnote">' + esc(t(ONLINE ? 'srvOn' : 'practice')) + '</p>';
   }
-  h += '</div>';
-  $('gate').innerHTML = h; $('gate').className = 'on'; $('gate').scrollTop = 0; $('app').classList.add('gate-on');
+  if (!full) h += '</div>';
+  $('gate').innerHTML = h; $('gate').className = full ? 'on full' : 'on'; $('gate').scrollTop = 0;
+  $('app').classList.add('gate-on'); $('app').classList.toggle('gate-full', full);
   var f = $('gForm');
   if (f) f.addEventListener('submit', function (e) {
     e.preventDefault();
@@ -1239,7 +1432,7 @@ function openGate(step) {
     err.className = 'gerr'; btn.disabled = true; btn.textContent = t('busy');
     var job = up ? signUp($('gId').value.trim(), $('gPw').value, ($('gNick').value || '').trim().slice(0, 10)) : logIn($('gId').value.trim(), $('gPw').value);
     job.then(function () { stamps = loadStamps(); closeGate(); }, function (e2) {
-      btn.disabled = false; btn.textContent = label; err.textContent = t((e2 && e2.ui) || 'eNet'); err.className = 'gerr on';
+      btn.disabled = false; btn.textContent = label; err.textContent = errText(e2); err.className = 'gerr on';
     });
   });
 }
